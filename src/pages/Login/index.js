@@ -21,6 +21,11 @@ const Login = ({navigation}) => {
   const handleLogin = async () => {
     setLoading(true);
   
+    const prefix = "TKN"
+    const uniquenumber = Math.floor(Math.random() * 1000000);
+   const token = prefix + uniquenumber
+  console.log('token', token);
+  AsyncStorage.setItem('@token', token)
     Fire.auth()
       .signInWithEmailAndPassword(inputan.email, inputan.password)
       .then((res) => {
@@ -31,12 +36,18 @@ const Login = ({navigation}) => {
           .ref(`users/${res.user.uid}/`)
           .once('value')
           .then((resDB) => {
-           console.log('hasillogin', res.user.uid);
-          //  storeData('user', res.user.uid);
+           console.log('hasillogin', resDB.val());
+       
             navigation.replace('MyTabs', {
               findSelf:  resDB.val(),
               uid: res.user.uid
             });
+
+            AsyncStorage.setItem('@findSelf', 
+              JSON.stringify(resDB.val()))
+
+            AsyncStorage.setItem('@userid', res.user.uid)
+
           }
           
           )
@@ -60,7 +71,7 @@ const Login = ({navigation}) => {
       });
   // if(inputan.email == "admin@gmail.com" && inputan.password == "admin") {
   //     navigation.navigate('Home')
-  //     AsyncStorage.setItem('@token', token)
+  
   //     console.log('token', token);
   // } else {
   //     alert('Email dan Password Salah!')

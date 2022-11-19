@@ -5,42 +5,65 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import CardView from '../../component/CardView';
 import HeaderSecondary from '../../component/Header/HeaderSecondary';
 import { FAB } from 'react-native-paper';
+import Fire  from '../../config/Fire';
+
+const Home = ({navigation, route}) => {
+
+    const [allDataLeads, setAllDataLeads] = useState([])
+    const [findSelf, setFindself] = useState({})
+    const [uid, setUID] = useState("")
 
 
-const Home = ({navigation}) => {
-
-    const [allProducts, setAllProducts] = useState([])
-    
     const gettoken = async () => {
-       const getStorage =  await AsyncStorage.getItem('@token')
-        console.log('getstor', getStorage);
+       const getToken =  await AsyncStorage.getItem('@token')
+       const getFindself =  await AsyncStorage.getItem('@findSelf')
+       const getUID =  await AsyncStorage.getItem('@userid')
+        const parseFindself = JSON.parse(getFindself)
+        setFindself(parseFindself)
+        setUID(getUID)
+        console.log('getstor', getUID);
     }
     
-    
-const getProducts = async () => {
-    
-    try {
-        await axios.get('https://fakestoreapi.com/products', {
 
-        }).then((res) => {
-            console.log('response', res.data);
-            const responseprod = res.data
-            const filterCloth = responseprod.filter((e) => e.category == "men's clothing")
-            setAllProducts(responseprod)
-        })
-    } catch (error) {
-        console.log('err', error);
-    }
-    
-}
   
 const handleLogout = async () => {
     await AsyncStorage.clear()
     navigation.replace('Splash')
 }
+
+const handleAdd = async () => {
+ 
+    navigation.push('AddLeads', {
+        uid: uid
+    })
+}
+
+
+const getLeads = async () => {
+ 
+    Fire.database()
+    .ref('leads/')
+    .once('value')
+    .then((resDB) => {
+        const datled = []
+        console.log('hasilleads', datled)
+        const value = resDB.val()
+        if (value) {
+            Object.keys(value).map((item) => {
+                datled.push(value[item]);
+           
+            });
+            console.log('hasil', datled);
+            setAllDataLeads(datled)
+          
+          }
+    }
+    )
+}
+
 useEffect(() => {
     gettoken()
-    getProducts()
+    getLeads()
 }, [])
 
 
@@ -48,18 +71,28 @@ useEffect(() => {
     <>
     
     <View style={{flex: 1, backgroundColor: 'white'}}>
-     <HeaderSecondary title="Products" onPress={handleLogout} />
+     <HeaderSecondary title={findSelf.nama}  />
      <ScrollView>
      <View>
-<CardView />
-<CardView />
-<CardView />
+
+{allDataLeads ?
+allDataLeads.filter((e) => e.idSales == uid).map((item, index) => {
+    return (
+<CardView data={item} />
+    )
+
+})
+:
+null
+}
+
+
 </View>
      </ScrollView>
      <FAB
     label="Tambah data"
     style={styles.fab}
-    onPress={handleLogout}
+    onPress={handleAdd}
   />
     </View>
    

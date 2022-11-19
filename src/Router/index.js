@@ -11,6 +11,7 @@ import SplashScreen from '../pages/SplashScreen';
 import MyTabBar from '../component/MyTabBar'
 import Appointment from '../pages/Appointment';
 import Register from '../pages/Login/Register';
+import AddDataLeads from '../pages/Home/AddDataLeads';
 
 
 
@@ -48,6 +49,11 @@ const Router = () => {
     <Stack.Screen
       name="Login"
       component={Login}
+      options={{headerShown: false}}
+    />
+     <Stack.Screen
+      name="AddLeads"
+      component={AddDataLeads}
       options={{headerShown: false}}
     />
   <Stack.Screen
