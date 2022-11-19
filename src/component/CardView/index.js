@@ -4,7 +4,7 @@ import DumShirt from '../../assets/dumshirt.jpg'
 import ICtelfon from '../../assets/telfon.png'
 import ICWA from '../../assets/whatsapp.png'
 
-const CardView = ({title, desc, price, img, onPress, data}) => {
+const CardView = ({onPress, data, onPressTel, onPressWA}) => {
 console.log('datssa', data.status);
   const [status, setStatus] = useState("")
   
@@ -20,6 +20,9 @@ console.log('datssa', data.status);
     }
     else if(data.status == 'BI Check' || data.status == 'Pengajuan') {
       setStatus("Intent")
+    }
+    else if(data.statusAppointment == "true") {
+      setStatus("Appointment")
     }
     else if(data.status == 'Booking Fee') {
       setStatus("Purchase")
@@ -51,21 +54,31 @@ console.log('datssa', data.status);
 
       <View>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPresstel={onPressTel}>
               <Image source={ICtelfon} style={{width: 40, height: 40, marginRight: 20}} />
               </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPressWA={onPressWA}>
           <Image source={ICWA} style={{width: 40, height: 40}} />
           </TouchableOpacity>
                
 
             </View>
-            <View style={{backgroundColor: 'white', height: 30, width: 100, marginTop: 5,
-            borderWidth: 3  ,
-            borderColor: '#D8EDFD'
-          }}>
-              <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold'}}>{status}</Text>
-            </View>
+            {status == "Appointment" ?
+             <View style={{backgroundColor: 'green', height: 30, width: 100, marginTop: 5,
+             borderWidth: 3  ,
+             borderColor: '#D8EDFD'
+           }}>
+               <Text style={{color: 'white', textAlign: 'center', fontWeight: 'bold'}}>{status}</Text>
+             </View>
+             :
+             <View style={{backgroundColor: 'white', height: 30, width: 100, marginTop: 5,
+             borderWidth: 3  ,
+             borderColor: '#D8EDFD'
+           }}>
+               <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold'}}>{status}</Text>
+             </View>
+          }
+           
       </View>
 
 

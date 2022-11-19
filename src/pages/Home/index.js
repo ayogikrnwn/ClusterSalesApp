@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 import CardView from '../../component/CardView';
 import HeaderSecondary from '../../component/Header/HeaderSecondary';
 import { FAB } from 'react-native-paper';
@@ -61,6 +61,19 @@ const getLeads = async () => {
     )
 }
 
+const handleWA = (item) => {
+    const OpenWA = 'http://wa.me/62' + item.whatsapp
+     Linking.openURL(OpenWA).then((res) => {
+        console.log('openWA', OpenWA);
+     })
+}
+
+const handleTel = (item) => {
+    const OpenTel = 'tel:' + item.phone
+     Linking.openURL(OpenTel).then((res) => {
+        console.log('opentel', OpenTel);
+     })
+}
 useEffect(() => {
     gettoken()
     getLeads()
@@ -78,7 +91,16 @@ useEffect(() => {
 {allDataLeads ?
 allDataLeads.filter((e) => e.idSales == uid).map((item, index) => {
     return (
-<CardView data={item} />
+<CardView 
+data={item} 
+onPress={() => navigation.push('ViewLeads', {
+    data: item,
+    uid: uid
+})}
+onPressWA={() => handleWA(item)}
+onPressTel={() => handleTel(item)}
+
+/>
     )
 
 })

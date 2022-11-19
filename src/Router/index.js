@@ -12,6 +12,9 @@ import MyTabBar from '../component/MyTabBar'
 import Appointment from '../pages/Appointment';
 import Register from '../pages/Login/Register';
 import AddDataLeads from '../pages/Home/AddDataLeads';
+import ViewDataLeads from '../pages/Home/ViewDataLeads';
+import AddDataAppointment from '../pages/Appointment/AddDataAppointment';
+import ViewDataAppointment from '../pages/Appointment/ViewDataAppointment';
 
 
 
@@ -54,6 +57,21 @@ const Router = () => {
      <Stack.Screen
       name="AddLeads"
       component={AddDataLeads}
+      options={{headerShown: false}}
+    />
+       <Stack.Screen
+      name="AddAppointment"
+      component={AddDataAppointment}
+      options={{headerShown: false}}
+    />
+     <Stack.Screen
+      name="ViewAppointment"
+      component={ViewDataAppointment}
+      options={{headerShown: false}}
+    />
+     <Stack.Screen
+      name="ViewLeads"
+      component={ViewDataLeads}
       options={{headerShown: false}}
     />
   <Stack.Screen

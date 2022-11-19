@@ -7,47 +7,43 @@ import Fire  from '../../config/Fire';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 
-const AddDataLeads = ({navigation, route}) => {
+const ViewDataAppointment = ({navigation, route}) => {
 
-   const {uid} = route.params;
+   const {uid, data} = route.params;
    const [openStatus, setOpenStatus] = useState(false);
+   const [datas, setDatas] = useState(data)
   const [valueStatus, setValueStatus] = useState(null);
     const [findSelf, setFindself] = useState({})
     
-    console.log('vallstat', valueStatus);
+    console.log('vallstat', data.idLeads);
     const [status, setStatus] = useState([
-        {label: 'Prospek', value: 'Prospek',   },
-        {label: 'Kualifikasi', value: 'Kualifikasi', },
-        {label: 'Visit', value: 'Visit', },
-        {label: 'Kebutuhan Terpenuhi', value: 'Kebutuhan Terpenuhi', },
-        {label: 'Kirim Perhitungan', value: 'Kirim Perhitungan', },
-        {label: 'Kirim Perhitungan', value: 'Bandingkan Produk', },
-        {label: 'BI Check', value: 'BI Check', },
-        {label: 'Pengajuan', value: 'Pengajuan', },
-        {label: 'Booking Fee', value: 'Booking Fee', },
-        {label: 'null', value: 'null', },
+        {label: 'Show', value: 'Show',   },
+        {label: 'No Show', value: 'No Show', },
+       
+       
 
         
       ]);
 
     const [inputan, setInput] = useState({
-        name: "",
-        status: "",
-        phone: "",
-        whatsapp: "",
+        name: data.name,
+        status: data.status,
+        phone: data.phone,
+        whatsapp: data.whatsapp,
 
-        source: "",
-        keterangan: "",
+        source: data.source,
+        keterangan: data.source,
 
 
         
       })
       const [date, setDate] = useState(new Date())
-
       const [dateConfirm, setDateConfirm] = useState("")
-
-     
+      const [dateCal, setDateCal] = useState(new Date())
+      const [dateConfirmCal, setDateConfirmCal] = useState("")
       const [open, setOpen] = useState(false)
+      const [openCal, setOpenCal] = useState(false)
+
       console.log('tanggal', dateConfirm);
 
     const gettoken = async () => {
@@ -69,6 +65,16 @@ const AddDataLeads = ({navigation, route}) => {
         setDateConfirm(jdw);
        
       };
+
+      const handleConfirmCal = (currentDate) => {
+        const tgl = currentDate.getDate() < 10 ? "0" + currentDate.getDate() : currentDate.getDate();
+        const bln = currentDate.getMonth() + 1 < 10 ? "0" + (currentDate.getMonth() + 1) : currentDate.getMonth() + 1;
+        var jdw = currentDate.getFullYear() + "/" + bln + "/" + tgl;
+        console.log(jdw);
+      
+        setDateConfirmCal(jdw);
+       
+      };
   
 const handleAdd = async () => {
 
@@ -79,25 +85,31 @@ const handleAdd = async () => {
    
     const parseFindself = JSON.parse(getFindself)
     const data = {
-        idLeads: id,
+        idAppointment: datas.idAppointment,
+       
         idSales: uid,
         namaSales: parseFindself.nama,
         name: inputan.name,
         status: valueStatus,
-        date: dateConfirm,
+        date2: dateConfirm,
         phone: inputan.phone,
         whatsapp: inputan.whatsapp,
         source: inputan.source,
-        keterangan: inputan.keterangan ?  inputan.keterangan : "-"
+        keterangan1: inputan.keterangan ?  inputan.keterangan : "-",
+        final: inputan.final ? inputan.final : "-"
 
 
     }
+
+   
+
     Fire.database()
-    .ref('leads/' + id + '/')
-    .set(data)
+    .ref('appointment/' + datas.idAppointment + '/')
+    .update(data)
     .then((resDB) => {
+    
         navigation.replace('MyTabs')
-        alert('Berhasil Tambah Data')
+        alert('Berhasil Update Appointment')
     })
 }
 useEffect(() => {
@@ -113,7 +125,7 @@ useEffect(() => {
      <HeaderSecondary title={findSelf.nama}  />
      <ScrollView>
      <View >
-        <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 20}}>Input Data Leads</Text>
+        <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 20}}>View Data Appointment</Text>
        
        <View style={{padding: 16}}>
       <TouchableOpacity style={{backgroundColor: '#F0F7FF', 
@@ -123,10 +135,11 @@ useEffect(() => {
         {dateConfirm !== "" ?
                     <Text style={{fontSize: 14, color: 'grey', textAlign: 'center'}}>{dateConfirm}</Text>
         :
-        <Text style={{fontSize: 14, color: 'grey', textAlign: 'center'}}>Pilih Tanggal</Text>
+        <Text style={{fontSize: 14, color: 'grey', textAlign: 'center'}}>Pilih Tanggal Follow UP 2</Text>
 
     }
       </TouchableOpacity>
+     
        <TextInput
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
@@ -138,6 +151,8 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Customer Name"
+           defaultValue={data.name}
+
             onChangeText={(e) => setInput({ ...inputan, name: e })}  
           />
            <TextInput
@@ -151,6 +166,8 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Phone Number"
+           defaultValue={data.phone}
+
             onChangeText={(e) => setInput({ ...inputan, phone: e })}  
           />
              <TextInput
@@ -163,6 +180,8 @@ useEffect(() => {
               alignSelf: 'center'
             }}
             placeholderTextColor="grey" 
+           defaultValue={data.whatsapp}
+
             placeholder="No. WhatsApp (Isi tanpa 0 / 62)"
             onChangeText={(e) => setInput({ ...inputan, whatsapp: e })}  
           />
@@ -177,6 +196,8 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Source"
+           defaultValue={data.source}
+
             onChangeText={(e) => setInput({ ...inputan, source: e })}  
           />
            {/* <TextInput
@@ -215,6 +236,21 @@ useEffect(() => {
               alignSelf: 'center'
             }}
             placeholderTextColor="grey" 
+            placeholder="Final"
+            onChangeText={(e) => setInput({ ...inputan, final: e })}  
+          />
+
+
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+              width: '80%',
+              alignSelf: 'center'
+            }}
+            placeholderTextColor="grey" 
             placeholder="Keterangan"
             onChangeText={(e) => setInput({ ...inputan, keterangan: e })}  
           />
@@ -226,6 +262,8 @@ useEffect(() => {
               >
         <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Simpan Data</Text>
     </TouchableOpacity>
+    
+
        </View>
 
 
@@ -247,11 +285,12 @@ useEffect(() => {
           setOpen(false)
         }}
       />
+      
     </>
   )
 }
 
-export default AddDataLeads
+export default ViewDataAppointment
 
 const styles = StyleSheet.create({
     fab: {

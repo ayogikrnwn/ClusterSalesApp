@@ -7,11 +7,12 @@ import Fire  from '../../config/Fire';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 
-const AddDataLeads = ({navigation, route}) => {
+const ViewDataLeads = ({navigation, route}) => {
 
-   const {uid} = route.params;
+   const {data, uid} = route.params;
+   console.log('itemlengkap', data);
    const [openStatus, setOpenStatus] = useState(false);
-  const [valueStatus, setValueStatus] = useState(null);
+  const [valueStatus, setValueStatus] = useState(data.status);
     const [findSelf, setFindself] = useState({})
     
     console.log('vallstat', valueStatus);
@@ -31,20 +32,20 @@ const AddDataLeads = ({navigation, route}) => {
       ]);
 
     const [inputan, setInput] = useState({
-        name: "",
-        status: "",
-        phone: "",
-        whatsapp: "",
+        name: data.name,
+        status: data.status,
+        phone: data.phone,
+        whatsapp: data.whatsapp,
 
-        source: "",
-        keterangan: "",
+        source: data.source,
+        keterangan: data.source,
 
 
         
       })
       const [date, setDate] = useState(new Date())
 
-      const [dateConfirm, setDateConfirm] = useState("")
+      const [dateConfirm, setDateConfirm] = useState(data.date)
 
      
       const [open, setOpen] = useState(false)
@@ -92,14 +93,17 @@ const handleAdd = async () => {
 
 
     }
+    console.log('dataupdate', data);
     Fire.database()
-    .ref('leads/' + id + '/')
-    .set(data)
+    .ref('leads/' + data.idSales + '/')
+    .update(data)
     .then((resDB) => {
         navigation.replace('MyTabs')
-        alert('Berhasil Tambah Data')
+        alert('Berhasil Ubah Data')
     })
 }
+
+
 useEffect(() => {
     gettoken()
    
@@ -113,7 +117,7 @@ useEffect(() => {
      <HeaderSecondary title={findSelf.nama}  />
      <ScrollView>
      <View >
-        <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 20}}>Input Data Leads</Text>
+        <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 20}}>View Data Leads</Text>
        
        <View style={{padding: 16}}>
       <TouchableOpacity style={{backgroundColor: '#F0F7FF', 
@@ -138,6 +142,7 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Customer Name"
+           defaultValue={data.name}
             onChangeText={(e) => setInput({ ...inputan, name: e })}  
           />
            <TextInput
@@ -151,6 +156,8 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Phone Number"
+           defaultValue={data.phone}
+
             onChangeText={(e) => setInput({ ...inputan, phone: e })}  
           />
              <TextInput
@@ -163,6 +170,8 @@ useEffect(() => {
               alignSelf: 'center'
             }}
             placeholderTextColor="grey" 
+           defaultValue={data.whatsapp}
+
             placeholder="No. WhatsApp (Isi tanpa 0 / 62)"
             onChangeText={(e) => setInput({ ...inputan, whatsapp: e })}  
           />
@@ -177,6 +186,8 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Source"
+           defaultValue={data.source}
+
             onChangeText={(e) => setInput({ ...inputan, source: e })}  
           />
            {/* <TextInput
@@ -216,15 +227,22 @@ useEffect(() => {
             }}
             placeholderTextColor="grey" 
             placeholder="Keterangan"
+           defaultValue={data.keterangan}
+
             onChangeText={(e) => setInput({ ...inputan, keterangan: e })}  
           />
 
 <TouchableOpacity onPress={handleAdd} style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30, alignSelf: 'center'}
+}>
+        <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Ubah Data</Text>
+    </TouchableOpacity>
 
-} 
-           
-              >
-        <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Simpan Data</Text>
+    <TouchableOpacity onPress={() => navigation.push('AddAppointment', {
+        data: data,
+        uid: uid
+    })} style={{backgroundColor: 'blue', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 15, alignSelf: 'center'}
+}>
+        <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Proses Appointment</Text>
     </TouchableOpacity>
        </View>
 
@@ -251,7 +269,7 @@ useEffect(() => {
   )
 }
 
-export default AddDataLeads
+export default ViewDataLeads
 
 const styles = StyleSheet.create({
     fab: {
