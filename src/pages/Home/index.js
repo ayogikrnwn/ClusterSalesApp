@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CardView from '../../component/CardView';
 import HeaderSecondary from '../../component/Header/HeaderSecondary';
 import { FAB } from 'react-native-paper';
@@ -89,7 +89,7 @@ useEffect(() => {
      <View>
 
 {allDataLeads ?
-allDataLeads.filter((e) => e.idSales == uid).map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid).slice(0,3).map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -108,6 +108,19 @@ onPressTel={() => handleTel(item)}
 null
 }
 
+{allDataLeads && 
+ <TouchableOpacity style={{backgroundColor: '#78C5FF', alignSelf: 'center', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30}} 
+ onPress={() => navigation.navigate('AllLeads')}
+  >
+<Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Show More</Text>
+</TouchableOpacity>
+}
+
+<TouchableOpacity style={{backgroundColor: '#78C5FF', alignSelf: 'center', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30}} 
+ onPress={handleLogout}
+  >
+<Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Logout</Text>
+</TouchableOpacity>
 
 </View>
      </ScrollView>

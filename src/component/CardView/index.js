@@ -5,12 +5,13 @@ import ICtelfon from '../../assets/telfon.png'
 import ICWA from '../../assets/whatsapp.png'
 
 const CardView = ({onPress, data, onPressTel, onPressWA}) => {
-console.log('datssa', data.status);
+
   const [status, setStatus] = useState("")
   
   const handleStatus = () => {
     if(data.status == 'Prospek') {
       setStatus("Awareness")
+      data.pipeline = "Awareness"
     }
     else if(data.status == 'Kualifikasi' || data.status == 'Visit' || data.status == 'Kebutuhan Terpenuhi' ) {
       setStatus("Discovery")
@@ -54,10 +55,10 @@ console.log('datssa', data.status);
 
       <View>
             <View style={{flexDirection: 'row'}}>
-              <TouchableOpacity onPresstel={onPressTel}>
+              <TouchableOpacity onPress={onPressTel}>
               <Image source={ICtelfon} style={{width: 40, height: 40, marginRight: 20}} />
               </TouchableOpacity>
-          <TouchableOpacity onPressWA={onPressWA}>
+          <TouchableOpacity onPress={onPressWA}>
           <Image source={ICWA} style={{width: 40, height: 40}} />
           </TouchableOpacity>
                

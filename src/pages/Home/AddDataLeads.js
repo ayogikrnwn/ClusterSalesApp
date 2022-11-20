@@ -13,15 +13,17 @@ const AddDataLeads = ({navigation, route}) => {
    const [openStatus, setOpenStatus] = useState(false);
   const [valueStatus, setValueStatus] = useState(null);
     const [findSelf, setFindself] = useState({})
-    
+    const [statusLeads, setStatusLeads] = useState("")
+  
     console.log('vallstat', valueStatus);
+    console.log('pipeline', statusLeads);
+    
     const [status, setStatus] = useState([
         {label: 'Prospek', value: 'Prospek',   },
         {label: 'Kualifikasi', value: 'Kualifikasi', },
         {label: 'Visit', value: 'Visit', },
         {label: 'Kebutuhan Terpenuhi', value: 'Kebutuhan Terpenuhi', },
         {label: 'Kirim Perhitungan', value: 'Kirim Perhitungan', },
-        {label: 'Kirim Perhitungan', value: 'Bandingkan Produk', },
         {label: 'BI Check', value: 'BI Check', },
         {label: 'Pengajuan', value: 'Pengajuan', },
         {label: 'Booking Fee', value: 'Booking Fee', },
@@ -43,10 +45,8 @@ const AddDataLeads = ({navigation, route}) => {
         
       })
       const [date, setDate] = useState(new Date())
-
       const [dateConfirm, setDateConfirm] = useState("")
 
-     
       const [open, setOpen] = useState(false)
       console.log('tanggal', dateConfirm);
 
@@ -70,6 +70,12 @@ const AddDataLeads = ({navigation, route}) => {
        
       };
   
+      
+    // const handleStatus = () => {
+   
+    // }
+
+      
 const handleAdd = async () => {
 
     const prefix = "ID"
@@ -77,6 +83,28 @@ const handleAdd = async () => {
    const id = prefix + uniquenumber
    const getFindself =  await AsyncStorage.getItem('@findSelf')
    
+      if(valueStatus == "Prospek") {
+        var pipeline = "Awareness"
+      }
+      else if(valueStatus == "Kualifikasi" || valueStatus == "Visit" || valueStatus == "Kebutuhan Terpenuhi" ) {
+        var pipeline = "Discovery"
+      }
+      else if(valueStatus == "Kirim Perhitungan" || valueStatus == "Bandingkan Produk") {
+        var pipeline = "Evaluation"
+      }
+      else if(valueStatus == "BI Check" || valueStatus == "Pengajuan") {
+        var pipeline = "Intent"
+
+      }
+     
+      else if(valueStatus == "Booking Fee") {
+        var pipeline = "Purchase"
+      }
+       else {
+        var pipeline = "Null"
+      }
+
+console.log("pipeline", pipeline);
     const parseFindself = JSON.parse(getFindself)
     const data = {
         idLeads: id,
@@ -88,7 +116,8 @@ const handleAdd = async () => {
         phone: inputan.phone,
         whatsapp: inputan.whatsapp,
         source: inputan.source,
-        keterangan: inputan.keterangan ?  inputan.keterangan : "-"
+        keterangan: inputan.keterangan ?  inputan.keterangan : "-",
+        pipeline: pipeline
 
 
     }
@@ -99,10 +128,11 @@ const handleAdd = async () => {
         navigation.replace('MyTabs')
         alert('Berhasil Tambah Data')
     })
+    console.log('datapara', data);
 }
 useEffect(() => {
     gettoken()
-   
+
 }, [])
 
 
@@ -218,7 +248,7 @@ useEffect(() => {
             placeholder="Keterangan"
             onChangeText={(e) => setInput({ ...inputan, keterangan: e })}  
           />
-
+<Text>{statusLeads ? statusLeads : " -"} </Text>
 <TouchableOpacity onPress={handleAdd} style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30, alignSelf: 'center'}
 
 } 

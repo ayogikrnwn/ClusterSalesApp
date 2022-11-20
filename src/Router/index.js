@@ -15,6 +15,7 @@ import AddDataLeads from '../pages/Home/AddDataLeads';
 import ViewDataLeads from '../pages/Home/ViewDataLeads';
 import AddDataAppointment from '../pages/Appointment/AddDataAppointment';
 import ViewDataAppointment from '../pages/Appointment/ViewDataAppointment';
+import AllDataLeads from '../pages/Home/AllDataLeads';
 
 
 
@@ -59,7 +60,12 @@ const Router = () => {
       component={AddDataLeads}
       options={{headerShown: false}}
     />
-       <Stack.Screen
+      <Stack.Screen
+      name="AllLeads"
+      component={AllDataLeads}
+      options={{headerShown: false}}
+    />
+           <Stack.Screen
       name="AddAppointment"
       component={AddDataAppointment}
       options={{headerShown: false}}

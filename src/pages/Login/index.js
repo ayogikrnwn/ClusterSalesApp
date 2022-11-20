@@ -132,11 +132,13 @@ const Login = ({navigation}) => {
               >
         <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Login</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30}} 
+    <Text style={{color: 'grey', fontSize: 16}}>Powered By Krnwn Tech</Text>
+
+    {/* <TouchableOpacity style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30}} 
              onPress={handleRegister}
               >
         <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Register</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
        </>
       }
          
