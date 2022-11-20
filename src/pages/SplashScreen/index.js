@@ -30,7 +30,7 @@ const SplashScreen = ({navigation})  => {
         <View style={{alignItems: 'center'}}>
         <Image source={Logo} style={{width: 100, height: 100}} />
         <View style={{marginTop: 16, alignItems: 'center'}}>
-        <Text style={{color: 'black', fontSize: 20, fontWeight: 'bold'}}>Cluster Gardenia</Text>
+        <Text style={{color: 'black', fontSize: 20, fontWeight: 'bold'}}>Paramount Petals</Text>
         <Text style={{color: 'black', fontSize: 16}}>Sales App</Text>
         </View>
        

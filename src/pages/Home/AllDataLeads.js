@@ -19,6 +19,7 @@ const AllDataLeads = ({navigation, route}) => {
     const [namaHeaders, setNamaHeaders] = useState("All")
     const [inputan, setInput] = useState({
         nama: "",
+        tags: ""
       })
 
     const gettoken = async () => {
@@ -91,7 +92,8 @@ const handleTel = (item) => {
 
 handleClear = () => {
     setInput({
-        nama : ""
+        nama : "",
+        tags: ""
     })
     setDateConfirm("")
 }
@@ -152,12 +154,26 @@ useEffect(() => {
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
-              width: '70%',
+              width: '30%',
                 marginLeft: 16
             }}
             placeholderTextColor="grey" 
-            placeholder="Cari Berdasarkan Nama"
+            placeholder="Cari Nama"
             onChangeText={(e) => setInput({ ...inputan, nama: e })}  
+          />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+                marginLeft: 5,
+              width: '30%',
+            
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Cari Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
           />
    
     <TouchableOpacity style={{width: 70, height: 40, 
@@ -174,7 +190,7 @@ useEffect(() => {
     </TouchableOpacity>
     </View>
    
-    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") ?
+    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") && (inputan.tags == "") ?
 allDataLeads.filter((e) => e.idSales == uid).map((item, index) => {
     return (
 <CardView 
@@ -208,8 +224,7 @@ onPressTel={() => handleTel(item)}
 
 })
 :
-
-allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama).map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama || e.tags == inputan.tags).map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -265,26 +280,40 @@ onPressTel={() => handleTel(item)}
     </TouchableOpacity>
     </ScrollView>
 
-   <View style={{flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row'}}>
     <TextInput
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
-              width: '70%',
+              width: '30%',
                 marginLeft: 16
             }}
             placeholderTextColor="grey" 
-            placeholder="Cari Berdasarkan Nama"
+            placeholder="Cari Nama"
             onChangeText={(e) => setInput({ ...inputan, nama: e })}  
+          />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+                marginLeft: 5,
+              width: '30%',
+            
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Cari Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
           />
    
     <TouchableOpacity style={{width: 70, height: 40, 
         backgroundColor: '#78C5FF', marginTop: 5, marginLeft: 5,
         borderRadius: 5}}
         onPress={() => setOpen(true)}>
-            <Text style={{textAlign: 'center', color: 'white'}} >Cari Tanggal</Text>
+            <Text style={{textAlign: 'center', color: 'white', }} >Cari Tanggal</Text>
     </TouchableOpacity>
     <TouchableOpacity style={{width: 40, height: 40, 
         backgroundColor: 'red', marginTop: 5, marginLeft: 5,
@@ -294,8 +323,8 @@ onPressTel={() => handleTel(item)}
     </TouchableOpacity>
     </View>
    
-    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") ?
-allDataLeads.filter((e) => e.idSales == uid && e.pipeline == "Awareness").map((item, index) => {
+    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") && (inputan.tags == "") ?
+allDataLeads.filter((e) => e.idSales == uid && e.pipeline == 'Awareness').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -312,7 +341,7 @@ onPressTel={() => handleTel(item)}
 })
 :
 dateConfirm !== "" ?
-allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == "Awareness").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == 'Awareness').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -328,8 +357,7 @@ onPressTel={() => handleTel(item)}
 
 })
 :
-
-allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama && e.pipeline == "Awareness").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid &&  e.pipeline == 'Awareness' && e.name == inputan.nama || e.tags == inputan.tags).map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -391,19 +419,33 @@ onPressTel={() => handleTel(item)}
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
-              width: '70%',
+              width: '30%',
                 marginLeft: 16
             }}
             placeholderTextColor="grey" 
-            placeholder="Cari Berdasarkan Nama"
+            placeholder="Cari Nama"
             onChangeText={(e) => setInput({ ...inputan, nama: e })}  
+          />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+                marginLeft: 5,
+              width: '30%',
+            
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Cari Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
           />
    
     <TouchableOpacity style={{width: 70, height: 40, 
         backgroundColor: '#78C5FF', marginTop: 5, marginLeft: 5,
         borderRadius: 5}}
         onPress={() => setOpen(true)}>
-            <Text style={{textAlign: 'center', color: 'white'}} >Cari Tanggal</Text>
+            <Text style={{textAlign: 'center', color: 'white', }} >Cari Tanggal</Text>
     </TouchableOpacity>
     <TouchableOpacity style={{width: 40, height: 40, 
         backgroundColor: 'red', marginTop: 5, marginLeft: 5,
@@ -413,8 +455,8 @@ onPressTel={() => handleTel(item)}
     </TouchableOpacity>
     </View>
    
-    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") ?
-allDataLeads.filter((e) => e.idSales == uid && e.pipeline == "Discovery").map((item, index) => {
+    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") && (inputan.tags == "") ?
+allDataLeads.filter((e) => e.idSales == uid && e.pipeline == 'Discovery').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -431,7 +473,7 @@ onPressTel={() => handleTel(item)}
 })
 :
 dateConfirm !== "" ?
-allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == "Discovery").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == 'Discovery').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -447,8 +489,7 @@ onPressTel={() => handleTel(item)}
 
 })
 :
-
-allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama && e.pipeline == "Discovery").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid &&  e.pipeline == 'Discovery' && e.name == inputan.nama || e.tags == inputan.tags).map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -509,19 +550,33 @@ onPressTel={() => handleTel(item)}
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
-              width: '70%',
+              width: '30%',
                 marginLeft: 16
             }}
             placeholderTextColor="grey" 
-            placeholder="Cari Berdasarkan Nama"
+            placeholder="Cari Nama"
             onChangeText={(e) => setInput({ ...inputan, nama: e })}  
+          />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+                marginLeft: 5,
+              width: '30%',
+            
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Cari Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
           />
    
     <TouchableOpacity style={{width: 70, height: 40, 
         backgroundColor: '#78C5FF', marginTop: 5, marginLeft: 5,
         borderRadius: 5}}
         onPress={() => setOpen(true)}>
-            <Text style={{textAlign: 'center', color: 'white'}} >Cari Tanggal</Text>
+            <Text style={{textAlign: 'center', color: 'white', }} >Cari Tanggal</Text>
     </TouchableOpacity>
     <TouchableOpacity style={{width: 40, height: 40, 
         backgroundColor: 'red', marginTop: 5, marginLeft: 5,
@@ -531,8 +586,8 @@ onPressTel={() => handleTel(item)}
     </TouchableOpacity>
     </View>
    
-    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") ?
-allDataLeads.filter((e) => e.idSales == uid && e.pipeline == "Evaluation").map((item, index) => {
+    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") && (inputan.tags == "") ?
+allDataLeads.filter((e) => e.idSales == uid && e.pipeline == 'Evaluation').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -549,7 +604,7 @@ onPressTel={() => handleTel(item)}
 })
 :
 dateConfirm !== "" ?
-allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == "Evaluation").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == 'Evaluation').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -565,8 +620,7 @@ onPressTel={() => handleTel(item)}
 
 })
 :
-
-allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama && e.pipeline == "Evaluation").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid &&  e.pipeline == 'Evaluation' && e.name == inputan.nama || e.tags == inputan.tags).map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -628,19 +682,33 @@ onPressTel={() => handleTel(item)}
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
-              width: '70%',
+              width: '30%',
                 marginLeft: 16
             }}
             placeholderTextColor="grey" 
-            placeholder="Cari Berdasarkan Nama"
+            placeholder="Cari Nama"
             onChangeText={(e) => setInput({ ...inputan, nama: e })}  
+          />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+                marginLeft: 5,
+              width: '30%',
+            
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Cari Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
           />
    
     <TouchableOpacity style={{width: 70, height: 40, 
         backgroundColor: '#78C5FF', marginTop: 5, marginLeft: 5,
         borderRadius: 5}}
         onPress={() => setOpen(true)}>
-            <Text style={{textAlign: 'center', color: 'white'}} >Cari Tanggal</Text>
+            <Text style={{textAlign: 'center', color: 'white', }} >Cari Tanggal</Text>
     </TouchableOpacity>
     <TouchableOpacity style={{width: 40, height: 40, 
         backgroundColor: 'red', marginTop: 5, marginLeft: 5,
@@ -650,8 +718,8 @@ onPressTel={() => handleTel(item)}
     </TouchableOpacity>
     </View>
    
-    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") ?
-allDataLeads.filter((e) => e.idSales == uid && e.pipeline == "Intent").map((item, index) => {
+    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") && (inputan.tags == "") ?
+allDataLeads.filter((e) => e.idSales == uid && e.pipeline == 'Intent').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -668,7 +736,7 @@ onPressTel={() => handleTel(item)}
 })
 :
 dateConfirm !== "" ?
-allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == "Intent").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == 'Intent').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -684,8 +752,7 @@ onPressTel={() => handleTel(item)}
 
 })
 :
-
-allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama && e.pipeline == "Intent").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid &&  e.pipeline == 'Intent' && e.name == inputan.nama || e.tags == inputan.tags).map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -750,19 +817,33 @@ onPressTel={() => handleTel(item)}
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
-              width: '70%',
+              width: '30%',
                 marginLeft: 16
             }}
             placeholderTextColor="grey" 
-            placeholder="Cari Berdasarkan Nama"
+            placeholder="Cari Nama"
             onChangeText={(e) => setInput({ ...inputan, nama: e })}  
+          />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+                marginLeft: 5,
+              width: '30%',
+            
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Cari Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
           />
    
     <TouchableOpacity style={{width: 70, height: 40, 
         backgroundColor: '#78C5FF', marginTop: 5, marginLeft: 5,
         borderRadius: 5}}
         onPress={() => setOpen(true)}>
-            <Text style={{textAlign: 'center', color: 'white'}} >Cari Tanggal</Text>
+            <Text style={{textAlign: 'center', color: 'white', }} >Cari Tanggal</Text>
     </TouchableOpacity>
     <TouchableOpacity style={{width: 40, height: 40, 
         backgroundColor: 'red', marginTop: 5, marginLeft: 5,
@@ -772,8 +853,8 @@ onPressTel={() => handleTel(item)}
     </TouchableOpacity>
     </View>
    
-    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") ?
-allDataLeads.filter((e) => e.idSales == uid && e.pipeline == "Purchase").map((item, index) => {
+    {(allDataLeads) && (inputan.nama == "") && (dateConfirm == "") && (inputan.tags == "") ?
+allDataLeads.filter((e) => e.idSales == uid && e.pipeline == 'Purchase').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -790,7 +871,7 @@ onPressTel={() => handleTel(item)}
 })
 :
 dateConfirm !== "" ?
-allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == "Purchase").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid && e.date == dateConfirm && e.pipeline == 'Purchase').map((item, index) => {
     return (
 <CardView 
 data={item} 
@@ -806,8 +887,7 @@ onPressTel={() => handleTel(item)}
 
 })
 :
-
-allDataLeads.filter((e) => e.idSales == uid && e.name == inputan.nama && e.pipeline == "Purchase").map((item, index) => {
+allDataLeads.filter((e) => e.idSales == uid &&  e.pipeline == 'Purchase' && e.name == inputan.nama || e.tags == inputan.tags).map((item, index) => {
     return (
 <CardView 
 data={item} 

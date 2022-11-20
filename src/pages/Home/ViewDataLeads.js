@@ -14,19 +14,34 @@ const ViewDataLeads = ({navigation, route}) => {
    const [openStatus, setOpenStatus] = useState(false);
   const [valueStatus, setValueStatus] = useState(data.status);
     const [findSelf, setFindself] = useState({})
-    
+    const [openSource, setOpenSource] = useState(false);
+    const [valueSource, setValueSource] = useState(data.source);
+
+
     console.log('vallstat', valueStatus);
     const [status, setStatus] = useState([
         {label: 'Prospek', value: 'Prospek',   },
         {label: 'Kualifikasi', value: 'Kualifikasi', },
         {label: 'Visit', value: 'Visit', },
         {label: 'Kebutuhan Terpenuhi', value: 'Kebutuhan Terpenuhi', },
-        {label: 'Kirim Perhitungan', value: 'Kirim Perhitungan', },
-        {label: 'Kirim Perhitungan', value: 'Bandingkan Produk', },
+        {label: 'Bandingkan Produk', value: 'Bandingkan Produk', },
         {label: 'BI Check', value: 'BI Check', },
         {label: 'Pengajuan', value: 'Pengajuan', },
         {label: 'Booking Fee', value: 'Booking Fee', },
         {label: 'null', value: 'null', },
+
+        
+      ]);
+
+      const [source, setSource] = useState([
+        {label: 'Exhibition', value: 'Exhibition',   },
+        {label: 'Database', value: 'Database', },
+        {label: 'FB/IG', value: 'FB/IG', },
+        {label: 'Reference', value: 'Reference', },
+        {label: 'Tim Digital', value: 'Tim Digital', },
+        {label: 'Walk-In', value: 'Walk-In', },
+
+       
 
         
       ]);
@@ -36,7 +51,7 @@ const ViewDataLeads = ({navigation, route}) => {
         status: data.status,
         phone: data.phone,
         whatsapp: data.whatsapp,
-
+        tags: data.tags ? data.tags : "-",
         source: data.source,
         keterangan: data.source,
 
@@ -88,8 +103,9 @@ const handleAdd = async () => {
         date: dateConfirm,
         phone: inputan.phone,
         whatsapp: inputan.whatsapp,
-        source: inputan.source,
-        keterangan: inputan.keterangan ?  inputan.keterangan : "-"
+        source: valueSource,
+        keterangan: inputan.keterangan ?  inputan.keterangan : "-",
+        tags: inputan.tags
 
 
     }
@@ -115,7 +131,7 @@ useEffect(() => {
     
     <View style={{flex: 1, backgroundColor: 'white'}}>
      <HeaderSecondary title={findSelf.nama}  />
-     <ScrollView>
+   
      <View >
         <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 20}}>View Data Leads</Text>
        
@@ -138,7 +154,9 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="Customer Name"
@@ -152,7 +170,9 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="Phone Number"
@@ -167,7 +187,9 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
            defaultValue={data.whatsapp}
@@ -175,47 +197,36 @@ useEffect(() => {
             placeholder="No. WhatsApp (Isi tanpa 0 / 62)"
             onChangeText={(e) => setInput({ ...inputan, whatsapp: e })}  
           />
-           <TextInput
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              backgroundColor: '#F0F7FF',
-              borderRadius: 12,
-              marginBottom: 10,
-              width: '80%',
-              alignSelf: 'center'
-            }}
-            placeholderTextColor="grey" 
-            placeholder="Source"
-           defaultValue={data.source}
+            <View style={{width: '80%', alignSelf: 'center'}}>
 
-            onChangeText={(e) => setInput({ ...inputan, source: e })}  
-          />
-           {/* <TextInput
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              backgroundColor: '#F0F7FF',
-              borderRadius: 12,
-              marginBottom: 10,
-              width: '80%',
-              alignSelf: 'center'
-            }}
-            placeholderTextColor="grey" 
-            placeholder="Status"
-            onChangeText={(e) => setInput({ ...inputan, status: e })}  
-          /> */}
-          <View style={{width: '80%', alignSelf: 'center'}}>
-          <DropDownPicker
-    placeholder="Silahkan pilih Status"
-    open={openStatus}
-    value={valueStatus}
-    items={status}
-    setOpen={setOpenStatus}
-    setValue={setValueStatus}
-    setItems={setStatus}
-    style={{backgroundColor: '#F0F7FF', marginBottom: 10,flex: 1}}
-  />
-          </View>
-          
+<DropDownPicker
+placeholder="Silahkan pilih Source"
+open={openSource}
+value={valueSource}
+items={source}
+setOpen={setOpenSource}
+setValue={setValueSource}
+setItems={setSource}
+style={{backgroundColor: '#F0F7FF', marginBottom: 50,flex: 1}}
+/>
+</View>
+
+
+<View style={{width: '80%', alignSelf: 'center'}}>
+ {openSource == false &&
+   <DropDownPicker
+   placeholder="Silahkan pilih Status"
+   open={openStatus}
+   value={valueStatus}
+   items={status}
+   setOpen={setOpenStatus}
+   setValue={setValueStatus}
+   setItems={setStatus}
+   style={{backgroundColor: '#F0F7FF', marginBottom: 40,flex: 1}}
+ />
+ }
+
+</View>
           <TextInput
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
@@ -223,7 +234,9 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="Keterangan"
@@ -231,8 +244,25 @@ useEffect(() => {
 
             onChangeText={(e) => setInput({ ...inputan, keterangan: e })}  
           />
+          <TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+        
+              width: '80%',
+              alignSelf: 'center',
+              color: 'black'
 
-<TouchableOpacity onPress={handleAdd} style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30, alignSelf: 'center'}
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Tags"
+            defaultValue={data.tags}
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
+          />
+
+<TouchableOpacity onPress={handleAdd} style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 15, alignSelf: 'center'}
 }>
         <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Ubah Data</Text>
     </TouchableOpacity>
@@ -240,7 +270,7 @@ useEffect(() => {
     <TouchableOpacity onPress={() => navigation.push('AddAppointment', {
         data: data,
         uid: uid
-    })} style={{backgroundColor: 'blue', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 15, alignSelf: 'center'}
+    })} style={{backgroundColor: 'blue', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 8, alignSelf: 'center'}
 }>
         <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Proses Appointment</Text>
     </TouchableOpacity>
@@ -248,7 +278,7 @@ useEffect(() => {
 
 
 </View>
-     </ScrollView>
+
      
     </View>
     <DatePicker

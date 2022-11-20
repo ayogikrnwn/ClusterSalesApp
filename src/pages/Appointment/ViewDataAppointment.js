@@ -162,7 +162,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Phone Number"
@@ -177,7 +178,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
            defaultValue={data.whatsapp}
@@ -192,7 +194,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Source"
@@ -233,7 +236,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Final"

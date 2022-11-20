@@ -43,7 +43,7 @@ const AddDataAppointment = ({navigation, route}) => {
       const [dateConfirmCal, setDateConfirmCal] = useState("")
       const [open, setOpen] = useState(false)
       const [openCal, setOpenCal] = useState(false)
-
+      const [dateConfirmAngka, setDateConfirmAngka] = useState("")
       console.log('tanggal', dateConfirm);
 
     const gettoken = async () => {
@@ -61,21 +61,12 @@ const AddDataAppointment = ({navigation, route}) => {
         const bln = currentDate.getMonth() + 1 < 10 ? "0" + (currentDate.getMonth() + 1) : currentDate.getMonth() + 1;
         var jdw = currentDate.getFullYear() + "/" + bln + "/" + tgl;
         console.log(jdw);
-      
+        setDateConfirmAngka(tgl)
         setDateConfirm(jdw);
        
       };
 
-      const handleConfirmCal = (currentDate) => {
-        const tgl = currentDate.getDate() < 10 ? "0" + currentDate.getDate() : currentDate.getDate();
-        const bln = currentDate.getMonth() + 1 < 10 ? "0" + (currentDate.getMonth() + 1) : currentDate.getMonth() + 1;
-        var jdw = currentDate.getFullYear() + "/" + bln + "/" + tgl;
-        console.log(jdw);
-      
-        setDateConfirmCal(jdw);
-       
-      };
-  
+     
 const handleAdd = async () => {
 
     const prefix = "ID"
@@ -96,7 +87,8 @@ const handleAdd = async () => {
         whatsapp: inputan.whatsapp,
         source: inputan.source,
         keterangan1: inputan.keterangan ?  inputan.keterangan : "-",
-        final: inputan.final ? inputan.final : "-"
+        final: inputan.final ? inputan.final : "-",
+        tgl: dateConfirmAngka
 
 
     }
@@ -151,7 +143,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Customer Name"
@@ -181,7 +174,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
            defaultValue={data.whatsapp}
@@ -196,7 +190,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Source"
@@ -237,7 +232,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Final"

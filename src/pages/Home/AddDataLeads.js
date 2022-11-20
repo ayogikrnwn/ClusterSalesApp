@@ -12,9 +12,14 @@ const AddDataLeads = ({navigation, route}) => {
    const {uid} = route.params;
    const [openStatus, setOpenStatus] = useState(false);
   const [valueStatus, setValueStatus] = useState(null);
+  const [openSource, setOpenSource] = useState(false);
+  const [valueSource, setValueSource] = useState(null);
     const [findSelf, setFindself] = useState({})
     const [statusLeads, setStatusLeads] = useState("")
+    const [dateConfirmAngka, setDateConfirmAngka] = useState("")
+
   
+
     console.log('vallstat', valueStatus);
     console.log('pipeline', statusLeads);
     
@@ -23,11 +28,23 @@ const AddDataLeads = ({navigation, route}) => {
         {label: 'Kualifikasi', value: 'Kualifikasi', },
         {label: 'Visit', value: 'Visit', },
         {label: 'Kebutuhan Terpenuhi', value: 'Kebutuhan Terpenuhi', },
-        {label: 'Kirim Perhitungan', value: 'Kirim Perhitungan', },
+        {label: 'Bandingkan Produk', value: 'Bandingkan Produk', },
         {label: 'BI Check', value: 'BI Check', },
         {label: 'Pengajuan', value: 'Pengajuan', },
         {label: 'Booking Fee', value: 'Booking Fee', },
-        {label: 'null', value: 'null', },
+       
+
+        
+      ]);
+      const [source, setSource] = useState([
+        {label: 'Exhibition', value: 'Exhibition',   },
+        {label: 'Database', value: 'Database', },
+        {label: 'FB/IG', value: 'FB/IG', },
+        {label: 'Reference', value: 'Reference', },
+        {label: 'Tim Digital', value: 'Tim Digital', },
+        {label: 'Walk-In', value: 'Walk-In', },
+
+       
 
         
       ]);
@@ -37,7 +54,7 @@ const AddDataLeads = ({navigation, route}) => {
         status: "",
         phone: "",
         whatsapp: "",
-
+        tags: "",
         source: "",
         keterangan: "",
 
@@ -65,7 +82,7 @@ const AddDataLeads = ({navigation, route}) => {
         const bln = currentDate.getMonth() + 1 < 10 ? "0" + (currentDate.getMonth() + 1) : currentDate.getMonth() + 1;
         var jdw = currentDate.getFullYear() + "/" + bln + "/" + tgl;
         console.log(jdw);
-      
+      setDateConfirmAngka(tgl)
         setDateConfirm(jdw);
        
       };
@@ -115,9 +132,11 @@ console.log("pipeline", pipeline);
         date: dateConfirm,
         phone: inputan.phone,
         whatsapp: inputan.whatsapp,
-        source: inputan.source,
+        source: valueSource,
         keterangan: inputan.keterangan ?  inputan.keterangan : "-",
-        pipeline: pipeline
+        pipeline: pipeline,
+        tgl: dateConfirmAngka,
+        tags: inputan.tags
 
 
     }
@@ -141,7 +160,7 @@ useEffect(() => {
     
     <View style={{flex: 1, backgroundColor: 'white'}}>
      <HeaderSecondary title={findSelf.nama}  />
-     <ScrollView>
+ 
      <View >
         <Text style={{color: 'black', textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 20}}>Input Data Leads</Text>
        
@@ -164,7 +183,9 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="Customer Name"
@@ -177,7 +198,9 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="Phone Number"
@@ -190,49 +213,43 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="No. WhatsApp (Isi tanpa 0 / 62)"
             onChangeText={(e) => setInput({ ...inputan, whatsapp: e })}  
           />
-           <TextInput
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              backgroundColor: '#F0F7FF',
-              borderRadius: 12,
-              marginBottom: 10,
-              width: '80%',
-              alignSelf: 'center'
-            }}
-            placeholderTextColor="grey" 
-            placeholder="Source"
-            onChangeText={(e) => setInput({ ...inputan, source: e })}  
-          />
-           {/* <TextInput
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              backgroundColor: '#F0F7FF',
-              borderRadius: 12,
-              marginBottom: 10,
-              width: '80%',
-              alignSelf: 'center'
-            }}
-            placeholderTextColor="grey" 
-            placeholder="Status"
-            onChangeText={(e) => setInput({ ...inputan, status: e })}  
-          /> */}
-          <View style={{width: '80%', alignSelf: 'center'}}>
-          <DropDownPicker
-    placeholder="Silahkan pilih Status"
-    open={openStatus}
-    value={valueStatus}
-    items={status}
-    setOpen={setOpenStatus}
-    setValue={setValueStatus}
-    setItems={setStatus}
-    style={{backgroundColor: '#F0F7FF', marginBottom: 10,flex: 1}}
+           <View style={{width: '80%', alignSelf: 'center'}}>
+
+           <DropDownPicker
+    placeholder="Silahkan pilih Source"
+    open={openSource}
+    value={valueSource}
+    items={source}
+    setOpen={setOpenSource}
+    setValue={setValueSource}
+    setItems={setSource}
+    style={{backgroundColor: '#F0F7FF', marginBottom: 50,flex: 1}}
   />
+           </View>
+          
+         
+          <View style={{width: '80%', alignSelf: 'center'}}>
+            {openSource == false &&
+              <DropDownPicker
+              placeholder="Silahkan pilih Status"
+              open={openStatus}
+              value={valueStatus}
+              items={status}
+              setOpen={setOpenStatus}
+              setValue={setValueStatus}
+              setItems={setStatus}
+              style={{backgroundColor: '#F0F7FF', marginBottom: 40,flex: 1}}
+            />
+            }
+        
           </View>
           
           <TextInput
@@ -241,14 +258,34 @@ useEffect(() => {
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 10,
+              marginTop: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
+
             }}
             placeholderTextColor="grey" 
             placeholder="Keterangan"
             onChangeText={(e) => setInput({ ...inputan, keterangan: e })}  
           />
-<Text>{statusLeads ? statusLeads : " -"} </Text>
+
+<TextInput
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: '#F0F7FF',
+              borderRadius: 12,
+              marginBottom: 10,
+        
+              width: '80%',
+              alignSelf: 'center',
+              color: 'black'
+
+            }}
+            placeholderTextColor="grey" 
+            placeholder="Tags"
+            onChangeText={(e) => setInput({ ...inputan, tags: e })}  
+          />
+
 <TouchableOpacity onPress={handleAdd} style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 30, alignSelf: 'center'}
 
 } 
@@ -260,7 +297,7 @@ useEffect(() => {
 
 
 </View>
-     </ScrollView>
+ 
      
     </View>
     <DatePicker

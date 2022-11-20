@@ -48,7 +48,7 @@ const CardView = ({onPress, data, onPressTel, onPressWA}) => {
      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
       <View>
         <Text style={{color: 'black', fontSize: 20, fontWeight: 'bold'}}>{data.name} </Text>
-        <Text style={{color: 'black', fontSize: 14, marginTop: 5}}>{data.whatsapp} </Text>
+        <Text style={{color: 'black', fontSize: 14, marginTop: 5}}>{data.tags ? data.tags : "No Tags"} </Text>
         <Text style={{color: 'black', fontSize: 14, marginTop: 5}}>{data.date}</Text>
 
       </View>
