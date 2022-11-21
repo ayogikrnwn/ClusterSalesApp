@@ -16,7 +16,7 @@ const ViewDataLeads = ({navigation, route}) => {
     const [findSelf, setFindself] = useState({})
     const [openSource, setOpenSource] = useState(false);
     const [valueSource, setValueSource] = useState(data.source);
-
+  const [datas, setDatas] = useState(data)
 
     console.log('vallstat', valueStatus);
     const [status, setStatus] = useState([
@@ -88,14 +88,35 @@ const ViewDataLeads = ({navigation, route}) => {
   
 const handleAdd = async () => {
 
-    const prefix = "ID"
-    const uniquenumber = Math.floor(Math.random() * 1000000);
-   const id = prefix + uniquenumber
+    
    const getFindself =  await AsyncStorage.getItem('@findSelf')
    
+   if(valueStatus == "Prospek") {
+    var pipeline = "Awareness"
+  }
+  else if(valueStatus == "Kualifikasi" || valueStatus == "Visit" || valueStatus == "Kebutuhan Terpenuhi" ) {
+    var pipeline = "Discovery"
+  }
+  else if(valueStatus == "Kirim Perhitungan" || valueStatus == "Bandingkan Produk") {
+    var pipeline = "Evaluation"
+  }
+  else if(valueStatus == "BI Check" || valueStatus == "Pengajuan") {
+    var pipeline = "Intent"
+
+  }
+ 
+  else if(valueStatus == "Booking Fee") {
+    var pipeline = "Purchase"
+  }
+   else {
+    var pipeline = "Null"
+  }
+
+console.log("pipeline", pipeline);
+
     const parseFindself = JSON.parse(getFindself)
     const data = {
-        idLeads: id,
+        idLeads: datas.idLeads,
         idSales: uid,
         namaSales: parseFindself.nama,
         name: inputan.name,
@@ -105,15 +126,17 @@ const handleAdd = async () => {
         whatsapp: inputan.whatsapp,
         source: valueSource,
         keterangan: inputan.keterangan ?  inputan.keterangan : "-",
-        tags: inputan.tags
+        tags: inputan.tags,
+        pipeline: pipeline
 
 
     }
-    console.log('dataupdate', data);
+    console.log('dataupdate', datas.idLeads);
     Fire.database()
-    .ref('leads/' + data.idSales + '/')
+    .ref('leads/' + datas.idLeads + '/')
     .update(data)
     .then((resDB) => {
+      console.log('resdb', resDB);
         navigation.replace('MyTabs')
         alert('Berhasil Ubah Data')
     })
@@ -218,6 +241,7 @@ style={{backgroundColor: '#F0F7FF', marginBottom: 50,flex: 1}}
    placeholder="Silahkan pilih Status"
    open={openStatus}
    value={valueStatus}
+  
    items={status}
    setOpen={setOpenStatus}
    setValue={setValueStatus}
@@ -263,7 +287,9 @@ style={{backgroundColor: '#F0F7FF', marginBottom: 50,flex: 1}}
           />
 
 <TouchableOpacity onPress={handleAdd} style={{backgroundColor: '#78C5FF', width: '70%', height: 40,  marginBottom: 14, borderRadius: 8, marginTop: 15, alignSelf: 'center'}
-}>
+}
+
+>
         <Text style={{textAlign: 'center', marginTop:3, fontSize: 14, fontFamily: 'Poppins-Light', paddingVertical: 5, color: 'white', fontWeight: 'bold'}} >Ubah Data</Text>
     </TouchableOpacity>
 
