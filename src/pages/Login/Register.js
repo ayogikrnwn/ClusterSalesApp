@@ -71,7 +71,8 @@ const Register = ({navigation}) => {
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 8,
-              width: '70%'
+              width: '70%',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Nama"
@@ -84,7 +85,8 @@ const Register = ({navigation}) => {
               backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 8,
-              width: '70%'
+              width: '70%',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Email"
@@ -96,7 +98,8 @@ const Register = ({navigation}) => {
              backgroundColor: '#F0F7FF',
               borderRadius: 12,
               marginBottom: 8,
-              width: '70%'
+              width: '70%',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Password"

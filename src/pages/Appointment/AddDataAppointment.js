@@ -248,7 +248,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Keterangan"

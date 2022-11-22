@@ -147,7 +147,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 8,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Customer Name"
@@ -163,6 +164,7 @@ useEffect(() => {
               marginBottom: 8,
               width: '80%',
               alignSelf: 'center',
+              color: 'black',
               color: 'black'
             }}
             placeholderTextColor="grey" 
@@ -179,7 +181,8 @@ useEffect(() => {
               marginBottom: 10,
               width: '80%',
               alignSelf: 'center',
-              color: 'black'
+              color: 'black',
+              
             }}
             placeholderTextColor="grey" 
            defaultValue={data.whatsapp}
@@ -252,7 +255,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '80%',
-              alignSelf: 'center'
+              alignSelf: 'center',
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Keterangan"

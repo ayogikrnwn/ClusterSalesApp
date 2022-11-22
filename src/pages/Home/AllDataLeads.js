@@ -155,7 +155,8 @@ useEffect(() => {
               borderRadius: 12,
               marginBottom: 10,
               width: '30%',
-                marginLeft: 16
+                marginLeft: 16,
+                color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Nama"
@@ -169,6 +170,7 @@ useEffect(() => {
               marginBottom: 10,
                 marginLeft: 5,
               width: '30%',
+              color: 'black'
             
             }}
             placeholderTextColor="grey" 
@@ -288,7 +290,8 @@ onPressTel={() => handleTel(item)}
               borderRadius: 12,
               marginBottom: 10,
               width: '30%',
-                marginLeft: 16
+                marginLeft: 16,
+                color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Nama"
@@ -302,6 +305,7 @@ onPressTel={() => handleTel(item)}
               marginBottom: 10,
                 marginLeft: 5,
               width: '30%',
+              color: 'black'
             
             }}
             placeholderTextColor="grey" 
@@ -420,7 +424,8 @@ onPressTel={() => handleTel(item)}
               borderRadius: 12,
               marginBottom: 10,
               width: '30%',
-                marginLeft: 16
+                marginLeft: 16,
+                color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Nama"
@@ -434,6 +439,7 @@ onPressTel={() => handleTel(item)}
               marginBottom: 10,
                 marginLeft: 5,
               width: '30%',
+              color: 'black'
             
             }}
             placeholderTextColor="grey" 
@@ -551,7 +557,8 @@ onPressTel={() => handleTel(item)}
               borderRadius: 12,
               marginBottom: 10,
               width: '30%',
-                marginLeft: 16
+                marginLeft: 16,
+                color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Nama"
@@ -565,6 +572,7 @@ onPressTel={() => handleTel(item)}
               marginBottom: 10,
                 marginLeft: 5,
               width: '30%',
+              color: 'black'
             
             }}
             placeholderTextColor="grey" 
@@ -683,7 +691,8 @@ onPressTel={() => handleTel(item)}
               borderRadius: 12,
               marginBottom: 10,
               width: '30%',
-                marginLeft: 16
+                marginLeft: 16,
+                color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Nama"
@@ -697,6 +706,7 @@ onPressTel={() => handleTel(item)}
               marginBottom: 10,
                 marginLeft: 5,
               width: '30%',
+              color: 'black'
             
             }}
             placeholderTextColor="grey" 
@@ -818,7 +828,8 @@ onPressTel={() => handleTel(item)}
               borderRadius: 12,
               marginBottom: 10,
               width: '30%',
-                marginLeft: 16
+                marginLeft: 16,
+                color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Nama"
@@ -832,7 +843,7 @@ onPressTel={() => handleTel(item)}
               marginBottom: 10,
                 marginLeft: 5,
               width: '30%',
-            
+              color: 'black'
             }}
             placeholderTextColor="grey" 
             placeholder="Cari Tags"
